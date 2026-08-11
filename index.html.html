@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kazan'ın'Dibi | Glutensiz & Şekersiz Ürünler</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2d5a27;
+      --primary-light: #eaf3e8;
+      --accent: #d4a373;
+      --accent-light: #fefae0;
+      --bg: #f8faf9;
+      --card-bg: #ffffff;
+      --text: #1c1917;
+      --text-muted: #78716c;
+      --border: #e7e5e4;
+      --danger: #ef4444;
+      --sidebar-width: 260px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    aside {
+      width: var(--sidebar-width);
+      background: var(--card-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      z-index: 100;
+    }
+
+    .brand {
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand h2 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand span {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 1.5rem 1rem;
+      flex: 1;
+    }
+
+    .nav-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.85rem 1rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .nav-link i {
+      font-size: 1.1rem;
+      width: 20px;
+    }
+
+    .admin-link-wrapper {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Main Content Area */
+    main {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 2.5rem 3rem;
+      max-width: calc(100vw - var(--sidebar-width));
+    }
+
+    /* Top Bar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .page-title h1 {
+      font-size: 1.8rem;
+      color: var(--text);
+    }
+
+    .page-title p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .contact-quick {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .badge-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Page Views */
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards & Layouts */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      padding: 4rem 3rem;
+      color: white;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-banner h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-banner p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #1e3f1a;
+    }
+
+    /* Menu Section Styles */
+    .menu-category {
+      margin-bottom: 2.5rem;
+    }
+
+    .menu-category h3 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .menu-item-info h4 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .menu-item-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .diet-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: #dcfce7;
+      color: #166534;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      font-weight: 700;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      font-size: 0.95rem;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      background: #fafaf9;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 900px) {
+      aside { width: 70px; }
+      .brand h2, .brand span, .nav-link span { display: none; }
+      main { margin-left: 70px; padding: 1.5rem; max-width: calc(100vw - 70px); }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside>
+    <div class="brand">
+      <h2>Kazan'ın'Dibi</h2>
+      <span>Glutensiz & Şekersiz</span>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a class="nav-link active" onclick="switchPage('home', 'Ana Sayfa')">
+          <i class="fa-solid fa-house"></i>
+          <span>Ana Sayfa</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="switchPage('about', 'Hakkımızda')">
+          <i class="fa-solid fa-store"></i>
+          <span>Hakkımızda</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="switchPage('menu', 'Menümüz')">
+          <i class="fa-solid fa-utensils"></i>
+          <span>Menü</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="switchPage('reservation', 'Online Rezervasyon')">
+          <i class="fa-solid fa-calendar-check"></i>
+          <span>Rezervasyon Yap</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="admin-link-wrapper">
+      <a class="nav-link" id="admin-nav-btn" onclick="switchPage('admin-login', 'Admin Girişi')">
+        <i class="fa-solid fa-user-shield"></i>
+        <span>Yönetici Paneli</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main>
+    <!-- Topbar Header -->
+    <div class="topbar">
+      <div class="page-title">
+        <h1 id="current-page-title">Ana Sayfa</h1>
+        <p>Bostanlı, Karşıyaka / İzmir</p>
+      </div>
+      <div class="contact-quick">
+        <div class="badge-btn">
+          <i class="fa-solid fa-location-dot" style="color: var(--primary);"></i>
+          Bostanlı 1787/1 Sk. 32A
+        </div>
+        <div class="badge-btn">
+          <i class="fa-solid fa-clock" style="color: var(--accent);"></i>
+          09:00 - 22:00
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 1: ANA SAYFA -->
+    <div id="page-home" class="page active">
+      <div class="hero-banner">
+        <h2>Sağlıklı Lezzetlerin Adresi</h2>
+        <p>%100 Glutensiz ve Şekersiz özel ürünlerimizle lezzetten ve sağlığınızdan ödün vermeden taptaze tatifler sunuyoruz.</p>
+        <button class="btn-primary" onclick="switchPage('reservation', 'Online Rezervasyon')">
+          <i class="fa-regular fa-calendar-plus"></i> Hemen Masa Ayırt
+        </button>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <i class="fa-solid fa-wheat-awn-circle-exclamation" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3>%100 Glutensiz</h3>
+          <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.9rem;">Çölyak hastaları ve gluten hassasiyeti olanlar için tam güvenli mutfak ortamı.</p>
+        </div>
+        <div class="card">
+          <i class="fa-solid fa-seedling" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3>Şekersiz Tatlılar</h3>
+          <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.9rem;">Rafine şeker kullanmadan, doğal tatlandırıcılarla hazırlanan hafif lezzetler.</p>
+        </div>
+        <div class="card">
+          <i class="fa-solid fa-mug-hot" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3>Sıcak & Samimi</h3>
+          <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.9rem;">Bostanlı'da keyifle vakit geçirebileceğiniz iç ve dış mekan konsepti.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: HAKKIMIZDA -->
+    <div id="page-about" class="page">
+      <div class="grid-2">
+        <div class="card">
+          <h2 style="color: var(--primary); margin-bottom: 1rem;">Biz Kimiz?</h2>
+          <p style="margin-bottom: 1rem; color: var(--text-muted);">
+            Kazan'ın'Dibi olarak Bostanlı'da sağlıklı beslenmeyi bir yaşam tarzı haline getiren misafirlerimize %100 Glutensiz ve Şekersiz alternatifler sunmak amacıyla yola çıktık.
+          </p>
+          <p style="margin-bottom: 1rem; color: var(--text-muted);">
+            Mutfak alanımızda çapraz bulaşma riskini tamamen ortadan kaldırarak hem Çölyaklı bireyler hem de sağlıklı beslenmeye özen gösteren herkes için güvenli bir alan oluşturduk.
+          </p>
+        </div>
+        <div class="card">
+          <h2 style="color: var(--primary); margin-bottom: 1rem;">Mekan Özellikleri</h2>
+          <ul style="list-style: none; line-height: 2;">
+            <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 8px;"></i> İçeride Servis ve Açık Alan</li>
+            <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 8px;"></i> Paket Servis İmkânı</li>
+            <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 8px;"></i> Temassız Teslimat</li>
+            <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 8px;"></i> Mutfak Hijyen Sertifikalı Kalite</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 3: MENÜ -->
+    <div id="page-menu" class="page">
+      <div class="menu-category">
+        <h3>Özel Tatlılar</h3>
+        <div class="grid-2">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Glutensiz Kazandibi <span class="diet-tag">Glutensiz</span><span class="diet-tag">Şekersiz</span></h4>
+              <p>Geleneksel lezzet, hindistan cevizi şekeri ve pirinç sütsüz hafif doku.</p>
+            </div>
+            <div class="price">180 ₺</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Unsuz Çikolatalı Kek <span class="diet-tag">Glutensiz</span></h4>
+              <p>%70 Bitter çikolata ve badem unu ile hazırlanmış özel kek.</p>
+            </div>
+            <div class="price">210 ₺</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Tuzlu & Fırın Ürünleri</h3>
+        <div class="grid-2">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Glutensiz Karabuğday Poğaçası <span class="diet-tag">Glutensiz</span></h4>
+              <p>Karabuğday unu, lor peyniri ve taze dereotu ile taze fırınlanmış.</p>
+            </div>
+            <div class="price">90 ₺</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Fit Avokado Tost <span class="diet-tag">Glutensiz</span></h4>
+              <p>Özel imalat glutensiz ekmek üzerine ezilmiş avokado ve çeçil peyniri.</p>
+            </div>
+            <div class="price">240 ₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 4: REZERVASYON -->
+    <div id="page-reservation" class="page">
+      <div class="grid-2">
+        <div class="card">
+          <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Masa Rezervasyonu</h2>
+          <form id="bookingForm">
+            <div class="form-group">
+              <label>Adınız Soyadınız</label>
+              <input type="text" id="res-name" placeholder="Örn: Ahmet Yılmaz" required>
+            </div>
+            <div class="form-group">
+              <label>Telefon Numarası</label>
+              <input type="tel" id="res-phone" placeholder="05XX XXX XX XX" required>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Tarih</label>
+                <input type="date" id="res-date" required>
+              </div>
+              <div class="form-group">
+                <label>Saat</label>
+                <input type="time" id="res-time" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Kişi Sayısı</label>
+              <select id="res-guests">
+                <option value="1 Kişi">1 Kişi</option>
+                <option value="2 Kişi" selected>2 Kişi</option>
+                <option value="4 Kişi">4 Kişi</option>
+                <option value="6+ Kişi">6+ Kişi (Grup)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Özel İstek / Alerjen Notu</label>
+              <textarea id="res-note" rows="3" placeholder="Örn: Çölyak hassasiyeti var, bahçe masası istiyoruz..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+              Rezervasyon Talebini Onayla
+            </button>
+          </form>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">Rezervasyon Bilgileri</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+              Rezervasyonunuz oluşturulduğunda sistemimize otomatik düşer. Yoğun saatlerde masanızı sizin için 15 dakika muhafaza etmekteyiz.
+            </p>
+            <div style="background: var(--primary-light); padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem;">
+              <h4 style="color: var(--primary); font-size: 0.9rem;">Çalışma Saatlerimiz</h4>
+              <p style="font-weight: 600; font-size: 0.9rem; margin-top: 4px;">Pazartesi - Pazar: 09:00 - 22:00</p>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+            📍 Bostanlı Migros yakınındayız.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 5: ADMIN LOGIN -->
+    <div id="page-admin-login" class="page">
+      <div style="max-width: 420px; margin: 3rem auto;" class="card">
+        <h2 style="text-align: center; color: var(--primary); margin-bottom: 1.5rem;">Yönetici Girişi</h2>
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label>Kullanıcı Adı</label>
+            <input type="text" id="adminUser" value="admin" required>
+          </div>
+          <div class="form-group">
+            <label>Şifre</label>
+            <input type="password" id="adminPass" placeholder="******" required>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+            Panelle Giriş Yap
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- PAGE 6: ADMIN DASHBOARD (Protected) -->
+    <div id="page-admin-dashboard" class="page">
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h2 style="color: var(--primary);">Gelen Rezervasyon Listesi</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Müşteriler tarafından gönderilen canlı talepler.</p>
+          </div>
+          <button class="btn-danger" onclick="logoutAdmin()">Görünümden Çık</button>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Müşteri Adı</th>
+                <th>Telefon</th>
+                <th>Tarih & Saat</th>
+                <th>Kişi</th>
+                <th>Alerjen / Not</th>
+                <th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="reservationTableBody">
+              <!-- Rezervasyonlar Buraya Düşecek -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Navigation / Page Switcher Logic
+    function switchPage(pageId, pageTitle) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      
+      // Remove active class from sidebar links
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+      // Show selected page
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if(targetPage) {
+        targetPage.classList.add('active');
+      }
+
+      // Update Topbar Title
+      document.getElementById('current-page-title').innerText = pageTitle;
+
+      // Update sidebar highlight
+      event?.currentTarget?.classList?.add('active');
+    }
+
+    // Reservation Handling (Save to LocalStorage)
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const booking = {
+        id: Date.now(),
+        name: document.getElementById('res-name').value,
+        phone: document.getElementById('res-phone').value,
+        date: document.getElementById('res-date').value,
+        time: document.getElementById('res-time').value,
+        guests: document.getElementById('res-guests').value,
+        note: document.getElementById('res-note').value || '-'
+      };
+
+      let bookings = JSON.parse(localStorage.getItem('kazandibi_res') || '[]');
+      bookings.push(booking);
+      localStorage.setItem('kazandibi_res', JSON.stringify(bookings));
+
+      alert('Rezervasyonunuz başarıyla iletildi!');
+      this.reset();
+    });
+
+    // Admin Login Logic
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const u = document.getElementById('adminUser').value;
+      const p = document.getElementById('adminPass').value;
+
+      if(u === 'admin' && p === '123456') {
+        renderAdminReservations();
+        switchPage('admin-dashboard', 'Admin Yönetim Paneli');
+      } else {
+        alert('Kullanıcı adı veya şifre hatalı! (Varsayılan: admin / 123456)');
+      }
+    });
+
+    // Render Admin Table Data
+    function renderAdminReservations() {
+      const bookings = JSON.parse(localStorage.getItem('kazandibi_res') || '[]');
+      const tbody = document.getElementById('reservationTableBody');
+      tbody.innerHTML = '';
+
+      if (bookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">Henüz bir rezervasyon kaydı yok.</td></tr>';
+        return;
+      }
+
+      bookings.reverse().forEach(b => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${b.name}</strong></td>
+          <td>${b.phone}</td>
+          <td><span style="background:var(--primary-light); color:var(--primary); padding:3px 8px; border-radius:6px; font-weight:600;">${b.date} - ${b.time}</span></td>
+          <td>${b.guests}</td>
+          <td>${b.note}</td>
+          <td><button class="btn-danger" onclick="deleteReservation(${b.id})"><i class="fa-solid fa-trash"></i> Sil</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Delete Reservation
+    function deleteReservation(id) {
+      let bookings = JSON.parse(localStorage.getItem('kazandibi_res') || '[]');
+      bookings = bookings.filter(b => b.id !== id);
+      localStorage.setItem('kazandibi_res', JSON.stringify(bookings));
+      renderAdminReservations();
+    }
+
+    function logoutAdmin() {
+      switchPage('home', 'Ana Sayfa');
+    }
+  </script>
+</body>
+</html>
